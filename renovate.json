@@ -1,0 +1,25 @@
+{
+	"composer": {
+		"enabled": false
+	},
+	"extends": [ "config:base" ],
+	"ignoreDeps": [ "husky" ],
+	"labels": [ "type: dependencies", "skip-changelog" ],
+	"lockFileMaintenance": {
+		"enabled": true
+	},
+	"packageRules": [
+		{
+			"automerge": true,
+			"depTypeList": [ "devDependencies", "dependencies" ],
+			"requiredStatusChecks": null,
+			"updateTypes": [ "major", "minor", "patch", "pin", "digest" ]
+		},
+		{
+			"automerge": true,
+			"updateTypes": [ "lockFileMaintenance" ]
+		}
+	],
+	"rebaseWhen": "conflicted",
+	"schedule": [ "before 3am on wednesday" ]
+}
