@@ -13,6 +13,7 @@ Install the module
 
 ```bash
 npm install @mypreview/unicorn-icons --save
+```
 
 ## Donate
 
