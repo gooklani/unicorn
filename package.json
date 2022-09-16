@@ -1,21 +1,22 @@
 {
-	"name": "@mypreview/unicorn",
-	"version": "0.1.0",
+	"name": "@mypreview/unicorn-icons",
+	"version": "1.0.0",
 	"description": "A collection of open-source cute linear icons.",
 	"keywords": [
-		"mypreview",
 		"gutenberg",
-		"wordpress",
+		"icons",
+		"mypreview",
 		"react",
-		"icons"
+		"unicorn",
+		"wordpress"
 	],
-	"homepage": "https://mypreview.github.io/unicorn",
+	"homepage": "https://mypreview.github.io/unicorn-icons/",
 	"bugs": {
-		"url": "https://github.com/mypreview/unicorn/issues"
+		"url": "https://github.com/mypreview/unicorn-icons/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mypreview/unicorn.git"
+		"url": "git+https://github.com/mypreview/unicorn-icons.git"
 	},
 	"license": "GPL-3.0-or-later",
 	"author": "MyPreview",
@@ -23,57 +24,45 @@
 	"main": "build/index.js",
 	"module": "build/index.js",
 	"scripts": {
-		"build": "cross-env BABEL_ENV=default NODE_ENV=production && rm -rf build && mkdir build && babel react --out-dir build --copy-files",
+		"build": "cross-env BABEL_ENV=default NODE_ENV=production && rm -rf build && mkdir build && babel src --out-dir build --no-copy-ignored",
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
+		"docs": "documentation build src/** -f html --github -o docs",
 		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:css-fix": "wp-scripts lint-style --fix",
 		"lint:js": "wp-scripts lint-js",
 		"lint:js-fix": "wp-scripts lint-js --fix",
-		"lint:md:docs": "wp-scripts lint-md-docs",
-		"lint:md:js": "wp-scripts lint-md-js",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"prepublishOnly": "npm run format && npm run build",
+		"prepare": "husky install",
+		"prepublishOnly": "npm run format && npm run lint:js && npm run build",
 		"test:e2e": "wp-scripts test-e2e",
-		"test:unit": "wp-scripts test-unit-js",
-		"docs": "documentation build src/** -f html --github -o docs"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
+		"test:unit": "cross-env BABEL_ENV=test NODE_ENV=test jest",
+		"test:unit:help": "cross-env BABEL_ENV=test NODE_ENV=test jest --help",
+		"test:unit:watch": "cross-env BABEL_ENV=test NODE_ENV=test jest --watch"
 	},
 	"lint-staged": {
-		"*.css": [
-			"npm run lint:css"
-		],
 		"*.{js,ts,tsx}": [
-			"npm run format",
-			"npm run lint:js"
-		]
-	},
-	"babel": {
-		"presets": [
-			"@babel/preset-env",
-			"@babel/preset-react"
+			"npm run lint:js",
+			"npm run format"
 		]
 	},
 	"dependencies": {
-		"react": "^17.0.2",
-		"@wordpress/primitives": "^1.12.3"
+		"@mypreview/unicorn-react-components": "1.6.1"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.13.16",
-		"@babel/core": "^7.14.2",
-		"@babel/preset-env": "^7.14.2",
-		"@babel/preset-react": "^7.13.13",
-		"@wordpress/scripts": "^16.0.0",
-		"babel-core": "^7.0.0-bridge.0",
-		"classnames": "^2.3.1",
-		"cross-env": "^7.0.3",
-		"husky": "^6.0.0",
-		"lint-staged": "^11.0.0"
+		"@babel/cli": "7.18.10",
+		"@babel/core": "7.19.1",
+		"@babel/preset-env": "7.19.1",
+		"@babel/preset-react": "7.18.6",
+		"@wordpress/scripts": "24.1.0",
+		"babel-loader": "8.2.5",
+		"cross-env": "7.0.3",
+		"documentation": "14.0.0",
+		"husky": "8.0.1",
+		"lint-staged": "13.0.3",
+		"prettier": "npm:wp-prettier@2.6.2"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
